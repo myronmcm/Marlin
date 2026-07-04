@@ -1,0 +1,51 @@
+#
+# build-ender3-sprite.yml
+# Build the Ender-3 Sprite Pro+ 2.85 firmware (Creality 4.2.7 board)
+# and upload the flashable .bin as a workflow artifact.
+#
+
+name: Build Ender-3 Sprite firmware
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - claude/ender3-sprite-nozzle-n6iq3p
+    paths:
+      - 'Marlin/**'
+      - 'ini/**'
+      - 'platformio.ini'
+      - '.github/workflows/build-ender3-sprite.yml'
+
+jobs:
+  build:
+    name: Build STM32F103RE_creality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache PlatformIO
+        uses: actions/cache@v4
+        with:
+          path: ~/.platformio
+          key: ${{ runner.os }}-pio-STM32F103RE_creality-${{ hashFiles('platformio.ini', 'ini/**') }}
+
+      - name: Install PlatformIO
+        run: pip install -U platformio
+
+      - name: Build firmware
+        run: pio run -e STM32F103RE_creality
+
+      - name: Upload firmware binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ender3-Sprite-285-firmware
+          path: .pio/build/STM32F103RE_creality/firmware-*.bin
+          if-no-files-found: error
