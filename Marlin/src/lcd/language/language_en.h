@@ -445,7 +445,7 @@ namespace LanguageNarrow_en {
   LSTR MSG_FILAMENTUNLOAD_ALL             = _UxGT("Unload All");
   LSTR MSG_RELEASE_MEDIA                  = _UxGT("Release ") MEDIA_TYPE_EN;
   LSTR MSG_SKEW_FACTOR                    = _UxGT("Skew Factor");
-  LSTR MSG_BLTOUCH                        = _UxGT("BLTouch");
+  LSTR MSG_BLTOUCH                        = _UxGT("CR Touch");
   LSTR MSG_BLTOUCH_SELFTEST               = _UxGT("Self-Test");
   LSTR MSG_BLTOUCH_STOW                   = _UxGT("Stow");
   LSTR MSG_BLTOUCH_DEPLOY                 = _UxGT("Deploy");
